@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Md5 } from 'ts-md5';
 
 @Injectable({
@@ -37,8 +36,7 @@ export class RequestService {
     }
 
     return this.http
-      .get<T>(requestUrl, requestOptions)
-      .pipe(map(response => response.data.results));
+      .get<T>(requestUrl, requestOptions);
   }
 
   private generateHash(publicKey: string, privateKey: string, ts: string) {

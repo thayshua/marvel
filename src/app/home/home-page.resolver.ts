@@ -3,8 +3,7 @@ import { Resolve } from '@angular/router';
 import { Observable, of, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { RequestService } from 'src/app/core/services/request.service';
-import { HomePage } from 'src/app/models';
-import { Character } from 'src/app/models/character';
+import { Character, HomePage, RouteData } from 'src/app/models';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +32,7 @@ export class HomePageResolver implements Resolve<HomePage> {
   getCharacterList(): Observable<Character[]> {
     const options = [{ key: 'limit', name: '10'}];
     return this.requestService
-      .get('/characters', options);
+      .get('/characters', options)
+      .pipe(map((response: RouteData) => response.data.results));
   }
 }

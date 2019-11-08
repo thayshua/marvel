@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
-import { Character } from 'src/app/models/character';
-import { Observable, of } from 'rxjs';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 import { RequestService } from 'src/app/core/services/request.service';
-import { take } from 'rxjs/operators';
+import { Character, RouteData } from 'src/app/models';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,9 @@ export class CharacterDetailPageResolver implements Resolve<Character>{
   }
 
   private getCharacterDetail(id: string): Observable<Character> {
-    return this.requestService.get(`/characters/${id}`);
+    return this.requestService
+      .get(`/characters/${id}`)
+      .pipe(map((response: RouteData) => response.data.results));
   }
 
 }
