@@ -1,0 +1,26 @@
+:host {
+  display: grid;
+  grid-template-areas:
+    'title title'
+    'thumbnail id'
+    'thumbnail name'
+    'thumbnail description';
+  
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 2fr;
+  
+  & > .thumbnail {
+    $image-size: 250px;
+
+    grid-area:  thumbnail;
+    height: $image-size;
+    width: $image-size;
+    border: 1px solid gray;
+    border-radius: 4px;
+    padding: 10px;
+  }
+  & > .id { grid-area: id; }
+  & > .name { grid-area: name; }
+  & > .description { grid-area: description; }
+
+}
